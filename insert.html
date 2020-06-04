@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<style>
+ a { text-decoration: none;}
+
+ .container
+{
+            border: 3px black solid;
+            width: 301px;
+            background: #00BFFF;
+            transition: 0.4s;
+}
+
+ .container:hover
+{
+            background: yellow;
+            transition: 0.4s;
+}
+
+input:invalid {
+  border: 2px dashed red;
+}
+
+input:valid {
+  border: 2px solid black;
+}
+
+select:invalid {
+  border: 2px dashed red;
+}
+
+select:valid {
+  border: 2px solid black;
+}
+
+.invalid { background: red;}
+.valid { background: greenyellow;}
+  #error { color: red }  
+</style>
+<body>
+
+<div class='container'>
+<form onsubmit="return checkformufinforum(this)" method="POST">
+<p>Покупець:<br>
+    <input type="text" id="username"/></p>
+<p>E-mail:<br> 
+    <input type="text" id="email"/></p>
+<label for="brand">Марка автомобіля:<br></label>
+  <select id="brand_name">
+    <option></option>
+    <option>Audi</option>
+  </select><br><br>
+<label for="model">Модель автомобіля:<br></label>
+  <select id="model_name">
+    <option></option>
+    <option>A6</option>
+    <option>RS5</option>
+    <option>R8</option>
+  </select><br>
+<!-- <p>Дата замовлення:<br>  
+   <input type="date" id="d"/></p> -->
+<p>Кількість замовлення:<br>  
+    <input type="text" id="order"/></p>
+    <input type="submit" value="Оформити" id="btn"/></p>
+</form>
+</div>
+
+<div id="error"></div>
+
+<script>
+email.onblur = function() {
+  if (!email.value.includes('@gmail.com') && !email.value.includes('@i.ua') && !email.value.includes('@meta.ua')) { 
+   email.classList.remove('valid'); 
+   email.classList.add('invalid');
+   error.innerHTML = 'Невірний формат!'
+} else { email.classList.add('valid'); error.innerHTML = ""; }};
+
+email.onfocus = function() {
+  if (this.classList.contains('invalid')) {
+   this.classList.remove('invalid');
+   error.innerHTML = "Адрес електронної пошти повинен закінчуватися доменом '@gmail.com || @i.ua || @meta.ua'!";
+}};
+
+var r = "^[a-zA-Z][a-zA-Z_]{4,20}$";
+username.onblur = function() {
+  if (!username.value.match(r)) {
+   username.classList.remove('valid'); 
+   username.classList.add('invalid');
+   error.innerHTML = 'Невірний формат!'
+} else { username.classList.add('valid'); error.innerHTML = ""; }};
+
+username.onfocus = function() {
+ if (this.classList.contains('invalid')) {
+  this.classList.remove('invalid');
+  error.innerHTML = "Ім'я повинно складатися з 5-ти до 20-ти латинських літер, приклад 'Markiyan_Nyzhnyk'!";
+}};
+
+brand_name.onblur = function() {
+  if (!brand_name.value.includes("Audi")) { 
+   brand_name.classList.remove('valid'); 
+   brand_name.classList.add('invalid');
+   error.innerHTML = 'Пусте поле!'
+} else { brand_name.classList.add('valid'); error.innerHTML = ""; }};
+
+brand_name.onfocus = function() {
+  if (this.classList.contains('invalid')) {
+   this.classList.remove('invalid');
+   error.innerHTML = "Виберіть один із запропонованих варіантів!";
+}};
+
+model_name.onblur = function() {
+  if (!model_name.value.includes("A6") && !model_name.value.includes("RS5") && !model_name.value.includes("R8")) { 
+   model_name.classList.remove('valid'); 
+   model_name.classList.add('invalid');
+   error.innerHTML = 'Пусте поле!'
+} else { model_name.classList.add('valid'); error.innerHTML = ""; }};
+
+model_name.onfocus = function() {
+  if (this.classList.contains('invalid')) {
+   this.classList.remove('invalid');
+   error.innerHTML = "Виберіть один із запропонованих варіантів!";
+}};
+
+// var e = "/([0-2]\d|3[01])\.(0\d|1[012])\.(\d{4})/";
+// d.onblur = function() {
+//   if (!d.value.match(e)) {
+//    d.classList.remove('valid'); 
+//    d.classList.add('invalid');
+//    error.innerHTML = 'Невірний формат!'
+// } else { d.classList.add('valid'); error.innerHTML = ""; }};
+
+// d.onfocus = function() {
+//  if (this.classList.contains('invalid')) {
+//   this.classList.remove('invalid');
+//   error.innerHTML = "Ім'я повинно складатися з не менш 5-ти літер!";
+// }};
+
+var g = "^[0-9]{1,4}$";
+order.onblur = function() {
+  if (!order.value.match(g)) {
+   order.classList.remove('valid'); 
+   order.classList.add('invalid');
+   error.innerHTML = 'Невірний формат!'
+} else { order.classList.add('valid'); error.innerHTML = ""; }};
+
+order.onfocus = function() {
+ if (this.classList.contains('invalid')) {
+  this.classList.remove('invalid');
+  error.innerHTML = "Тільки цифри, макс.число '9999'!";
+}};
+
+function checkformufinforum(form) {
+  for (var i = 0; i < form.elements.length; i++)  
+  if (form.elements[i].value == '') {
+  alert ('Усі поля повинні бути заповнені!');
+  return false;
+} else { alert ('Успішно!'); return true; } };
+</script>
+</body>
+</html>
